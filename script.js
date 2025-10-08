@@ -1,5 +1,4 @@
-/* ====== For Kulla — Full app script ====== */
-/* Requires anime.js and canvas-confetti loaded by index.html */
+
 
 const magicBtn = document.getElementById("magicBtn");
 const messageBox = document.getElementById("message");
@@ -9,105 +8,115 @@ const shareBtn = document.getElementById("shareBtn");
 const saveBtn = document.getElementById("saveBtn");
 const bgMusic = document.getElementById("bgMusic");
 
-// Messages mix: cute, funny, motivational, memories
+
 const messages = [
-  "Success is not final; failure is not fatal: It is the courage to continue that counts. — Winston Churchill",
-  "It always seems impossible until it's done. — Nelson Mandela",
-  "The only way to do great work is to love what you do. — Steve Jobs",
-  "You miss 100% of the shots you don’t take. — Wayne Gretzky",
-  "Whether you think you can or you think you can't, you're right. — Henry Ford",
-  "The future belongs to those who believe in the beauty of their dreams. — Eleanor Roosevelt",
-  "In the middle of every difficulty lies opportunity. — Albert Einstein",
-  "Don’t watch the clock; do what it does. Keep going. — Sam Levenson",
-  "It does not matter how slowly you go as long as you do not stop. — Confucius",
-  "Everything you’ve ever wanted is on the other side of fear. — George Addair",
-  "Opportunities don't happen, you create them. — Chris Grosser",
-  "Success is not how high you have climbed, but how you make a positive difference to the world. — Roy T. Bennett",
-  "Hardships often prepare ordinary people for an extraordinary destiny. — C.S. Lewis",
-  "The only limit to our realization of tomorrow is our doubts of today. — Franklin D. Roosevelt",
-  "Act as if what you do makes a difference. It does. — William James",
-  "Success usually comes to those who are too busy to be looking for it. — Henry David Thoreau",
-  "Don't be afraid to give up the good to go for the great. — John D. Rockefeller",
-  "I find that the harder I work, the more luck I seem to have. — Thomas Jefferson",
-  "Don’t let yesterday take up too much of today. — Will Rogers",
-  "You learn more from failure than from success. Don’t let it stop you. Failure builds character. — Unknown",
-  "It is never too late to be what you might have been. — George Eliot",
-  "You only live once, but if you do it right, once is enough. — Mae West",
-  "The purpose of life is not to be happy. It is to be useful, to be honorable, to be compassionate, to have it make some difference that you have lived and lived well. — Ralph Waldo Emerson",
-  "Life is what happens when you're busy making other plans. — John Lennon",
-  "Get busy living or get busy dying. — Stephen King",
-  "You have within you right now, everything you need to deal with whatever the world can throw at you. — Brian Tracy",
-  "Believe you can and you're halfway there. — Theodore Roosevelt",
-  "The best way to predict the future is to create it. — Abraham Lincoln",
-  "Do what you can, with what you have, where you are. — Theodore Roosevelt",
-  "You must be the change you wish to see in the world. — Mahatma Gandhi",
-  "Life isn’t about finding yourself. Life is about creating yourself. — George Bernard Shaw",
-  "The mind is everything. What you think you become. — Buddha",
-  "To live a creative life, we must lose our fear of being wrong. — Joseph Chilton Pearce",
-  "If you can dream it, you can do it. — Walt Disney",
-  "The best revenge is massive success. — Frank Sinatra",
-  "Life is either a daring adventure or nothing at all. — Helen Keller",
-  "To be yourself in a world that is constantly trying to make you something else is the greatest accomplishment. — Ralph Waldo Emerson",
-  "Success is not in what you have, but who you are. — Bo Bennett",
-  "The only way to achieve the impossible is to believe it is possible. — Charles Kingsleigh",
-  "The only person you are destined to become is the person you decide to be. — Ralph Waldo Emerson",
-  "Go confidently in the direction of your dreams. Live the life you have imagined. — Henry David Thoreau",
-  "Life is really simple, but we insist on making it complicated. — Confucius",
-  "Do not go where the path may lead, go instead where there is no path and leave a trail. — Ralph Waldo Emerson",
-  "You are never too old to set another goal or to dream a new dream. — C.S. Lewis",
-  "The best way to get started is to quit talking and begin doing. — Walt Disney",
-  "Don't let the noise of others' opinions drown out your own inner voice. — Steve Jobs",
-  "Your time is limited, so don't waste it living someone else's life. — Steve Jobs",
-  "If you want to live a happy life, tie it to a goal, not to people or things. — Albert Einstein",
-  "The only impossible journey is the one you never begin. — Tony Robbins",
-  "Life is short, and it is up to you to make it sweet. — Sarah Louise Delany",
-  "Keep your face always toward the sunshine—and shadows will fall behind you. — Walt Whitman",
-  "It is not length of life, but depth of life. — Ralph Waldo Emerson",
-  "Don’t count the days, make the days count. — Muhammad Ali",
-  "The purpose of life is to believe, to hope, and to strive. — Indira Gandhi",
-  "You are the sum total of everything you've ever seen, heard, eaten, smelled, been told, forgot—it's all there. — Maya Angelou",
-  "Life is not measured by the number of breaths we take, but by the moments that take our breath away. — Unknown",
-  "In three words I can sum up everything I've learned about life: it goes on. — Robert Frost",
-  "Life is 10% what happens to us and 90% how we react to it. — Charles R. Swindoll",
-  "Life is not about waiting for the storm to pass, but about learning how to dance in the rain. — Unknown",
-  "The biggest adventure you can take is to live the life of your dreams. — Oprah Winfrey",
-  "Life is too important to be taken seriously. — Oscar Wilde",
-  "Life is a flower of which love is the honey. — Victor Hugo",
-  "Life is a journey that must be traveled no matter how bad the roads and accommodations. — Oliver Goldsmith",
-  "Life is what we make it, always has been, always will be. — Grandma Moses",
-  "You have to live a life you’re proud of. If you find that you’re not, I hope you have the strength to start over. — F. Scott Fitzgerald",
-  "Life is not about finding yourself. Life is about creating yourself. — George Bernard Shaw",
-  "You are stronger than you think. — Unknown",
-  "Do one thing every day that scares you. — Eleanor Roosevelt",
-  "What you get by achieving your goals is not as important as what you become by achieving your goals. — Zig Ziglar",
-  "Happiness is not something ready made. It comes from your own actions. — Dalai Lama",
-  "Believe in yourself and all that you are. — Christian D. Larson",
-  "Never bend your head. Always hold it high. Look the world straight in the eye. — Helen Keller",
-  "Dream big and dare to fail. — Norman Vaughan",
-  "Start where you are. Use what you have. Do what you can. — Arthur Ashe",
-  "The harder the conflict, the greater the triumph. — George Washington",
-  "The best way out is always through. — Robert Frost",
-  "Keep going. Be all in. — Bryan Hutchinson",
-  "What lies behind us and what lies before us are tiny matters compared to what lies within us. — Ralph Waldo Emerson",
-  "Never give up on a dream just because of the time it will take to accomplish it. The time will pass anyway. — Earl Nightingale",
-  "A year from now you may wish you had started today. — Karen Lamb",
-  "You don’t have to be great to start, but you have to start to be great. — Zig Ziglar",
-  "Don’t let small minds convince you that your dreams are too big. — Unknown",
-  "The secret of getting ahead is getting started. — Mark Twain",
-  "With the new day comes new strength and new thoughts. — Eleanor Roosevelt",
-  "Do not wait to strike till the iron is hot; but make it hot by striking. — William Butler Yeats",
-  "Everything you can imagine is real. — Pablo Picasso",
-  "Quality is not an act, it is a habit. — Aristotle",
-  "Try not to become a man of success, but rather try to become a man of value. — Albert Einstein",
-  "Do what you love, and the money will follow. — Marsha Sinetar",
+  {"✨ "The only way to do great work 💻 is to love what you do ❤️." – Steve Jobs"},  
+{"🐾 "It always seems impossible 🌟 until it’s done 🌍." – Nelson Mandela"},  
+{"🌈 "Happiness depends 🍃 upon ourselves 💫." – Aristotle"},  
+{"🍀 "Do what you can 💪, with what you have 🌻, where you are 🐦." – Theodore Roosevelt"},  
+{"🔥 "Success is not final 🦁; failure is not fatal 💔: It is the courage 🌟 to continue that counts." – Winston Churchill"},  
+{"🌸 "Believe you can 🐝 and you’re halfway 🎯 there." – Theodore Roosevelt"},  
+{"🌞 "Keep your face 🌻 always toward the sunshine 🌈 — and shadows 🌑 will fall behind you." – Walt Whitman"},  
+{"🪐 "In the middle 🌌 of every difficulty 🌀 lies opportunity 🔑." – Albert Einstein"},  
+{"💖 "You miss 100% 🏒 of the shots 🥅 you don’t take ✨." – Wayne Gretzky"},  
+{"📚 "An investment in knowledge 🍎 pays the best interest 🌟." – Benjamin Franklin"},  
+{"🥊 "Don’t count the days 📆, make the days count 🌊." – Muhammad Ali"},  
+{"🎭 "Be yourself 🦋; everyone else is already taken 🎀." – Oscar Wilde"},  
+{"🌟 "Act as if what you do 🌱 makes a difference 💡. It does ✨." – William James"},  
+{"🕊️ "Everything you’ve ever wanted 🚪 is on the other side of fear 🌌." – George Addair"},  
+{"🚀 "Opportunities don’t happen 🌟, you create them 🔥." – Chris Grosser"},  
+{"🍂 "Dream big 💭 and dare to fail 🐾." – Norman Vaughan"},  
+{"💎 "Don’t wait ⏳. The time 🕰️ will never be just right 🌱." – Napoleon Hill"},  
+{"🌺 "We become what we think about 🌸." – Earl Nightingale"},  
+{"⚡ "Do one thing every day 🌞 that scares you 🐼." – Eleanor Roosevelt"},  
+{"🌹 "Everything has beauty 🌸, but not everyone sees it 🍓." – Confucius"},  
+{"🌻 "Success usually comes 🌞 to those who are too busy 🐝 to be looking for it 🌸." – Henry David Thoreau"},  
+{"🎬 "If you can dream it 💭, you can do it 🦋." – Walt Disney"},  
+{"🐧 "Hardships often prepare 🪨 ordinary people for an extraordinary destiny 🌌." – C.S. Lewis"},  
+{"🖤 "Your time is limited ⏳, so don’t waste it living 🍏 someone else’s life 🌸." – Steve Jobs"},  
+{"🛠️ "The best way to predict 🔮 the future is to invent it 🌴." – Alan Kay"},  
+{"⏰ "Don’t watch the clock ⌛; do what it does — keep going 🍉." – Sam Levenson"},  
+{"🌠 "Act 🌟 or accept 🪞." – Anonymous"},  
+{"🌿 "Life is 10% what happens 🌊 to us and 90% how we react 💫." – Charles Swindoll"},  
+{"🦋 "What lies behind us 🍂 and what lies before us 🌸 are tiny matters compared to what lies within us 🌼." – Ralph Waldo Emerson"},  
+{"🌺 "Great minds discuss ideas 🌟; average minds discuss events 🎭; small minds discuss people 🐙." – Eleanor Roosevelt"},  
+{"🎐 "Fall seven times 🌊 and stand up eight 🌼." – Japanese Proverb"},  
+{"🎨 "Everything you can imagine 🎨 is real 🦊." – Pablo Picasso"},  
+{"💕 "Turn your wounds 🩹 into wisdom 🌙." – Oprah Winfrey"},  
+{"🌟 "Doubt kills more dreams 🌈 than failure ever will 🍀." – Suzy Kassem"},  
+{"🦄 "A journey of a thousand miles 🚶 begins with a single step 🐾." – Lao Tzu"},  
+{"🎾 "Start where you are 🌍. Use what you have 🛠️. Do what you can 🌊." – Arthur Ashe"},  
+{"💖 "Don’t be pushed around by the fears 😨 in your mind 🌌. Be led by the dreams 💭 in your heart 🌻." – Roy T. Bennett"},  
+{"🌈 "Try to be a rainbow 🌈 in someone’s cloud ☁️." – Maya Angelou"},  
+{"🐰 "Stay hungry 🍴, stay foolish 🌸." – Steve Jobs"},  
+{"🎶 "The best revenge 😏 is massive success 🌟." – Frank Sinatra"},  
+{"🕊️ "Happiness is not something ready-made 🌸. It comes from your own actions 🌺." – Dalai Lama"},  
+{"🌌 "You are never too old 🎂 to set another goal 🎯 or to dream a new dream 🌙." – C.S. Lewis"},  
+{"🐉 "Opportunities multiply 🌟 as they are seized ⚔️." – Sun Tzu"},  
+{"🔨 "Do not wait 🕰️ to strike till the iron is hot 🔥; but make it hot by striking 🐝." – William Butler Yeats"},  
+{"🌟 "The future belongs to those who believe 🌸 in the beauty 🌺 of their dreams 🍭." – Eleanor Roosevelt"},  
+{"🪐 "Quality is not an act 🎭, it is a habit 🌙." – Aristotle"},  
+{"💎 "Don’t be afraid 😨 to give up the good 💖 to go for the great 🐬." – John D. Rockefeller"},  
+{"🚀 "Difficulties in life don’t come 🌊 to destroy you 💔, but to help you realize 🌟 your hidden potential 🌹." – A.P.J. Abdul Kalam"},  
+{"🪞 "If opportunity doesn’t knock 🚪, build a door 🌸." – Milton Berle"},  
+{"🎭 "Be so good 🌟 they can’t ignore you 🐾." – Steve Martin"},  
+{"📖 "The secret of getting ahead 🚀 is getting started 🌈." – Mark Twain"},  
+{"🔥 "Arise 🌞, awake 🌄 and stop not till the goal 🎯 is reached 🌺." – Swami Vivekananda"},  
+{"🕊️ "Our greatest glory 🌟 is not in never falling 🍂, but in rising every time we fall 🌻." – Confucius"},  
+{"💖 "Do what you love ❤️ and the money 💸 will follow 🌟." – Marsha Sinetar"},  
+{"🌸 "Limit your 'always' 🐝 and your 'nevers' 🐧." – Amy Poehler"},  
+{"🌌 "Whatever you are 🌙, be a good one 🌟." – Abraham Lincoln"},  
+{"🎶 "Work hard in silence 🤫, let your success 🌸 be the noise 🐝." – Frank Ocean"},  
+{"🚴 "Great things 🌟 never come from comfort zones 🛋️." – Anonymous"},  
+{"🌟 "Push yourself 💪, because no one else is going to do it 🐼 for you." – Anonymous"},  
+{"🚀 "Success doesn’t just find you 🌸. You have to go out 🚶 and get it 🔥." – Anonymous"},  
+{"🌈 "Dream it 💭. Wish it 🌠. Do it 🌸." – Anonymous"},  
+{"🕰️ "Sometimes later ⏳ becomes never ❌. Do it now ⚡." – Anonymous"},  
+{"🌺 "Little things 🌼 make big days 🌞." – Anonymous"},  
+{"🏁 "Don’t stop when you’re tired 😴. Stop when you’re done ✅." – Anonymous"},  
+{"🌙 "Wake up with determination 🌅. Go to bed 🛏️ with satisfaction 🌸." – Anonymous"},  
+{"💫 "Do something today 📆 that your future self 🌱 will thank you 🌟 for." – Anonymous"},  
+{"🍀 "Doubt kills more dreams 🌈 than failure ever will 🐰." – Suzy Kassem"},  
+{"🌟 "Discipline is the bridge 🌉 between goals 🎯 and accomplishment 🌸." – Jim Rohn"},  
+{"🔥 "Don’t limit your challenges 🌊. Challenge your limits ⚡." – Anonymous"},  
+{"🌹 "The harder you work 💪 for something, the greater 🌟 you’ll feel when you achieve it 🐝." – Anonymous"},  
+{"🪐 "Dream bigger 🌌. Do bigger 🌸." – Anonymous"},  
+{"💡 "Don’t wish it were easier 😌. Wish you were better 🌟." – Jim Rohn"},  
+{"🦁 "Success is going from failure 💔 to failure 🌊 without losing your enthusiasm 🌸." – Winston Churchill"},  
+{"⚡ "Hard work beats talent 🏆 when talent doesn’t work hard 🐼." – Tim Notke"},  
+{"🎾 "A champion 🏆 is defined not by their wins 🎉 but by how they can recover 💪 when they fall 🌈." – Serena Williams"},  
+{"🌲 "Do not go where the path may lead 🌿. Go instead where there is no path 🌸 and leave a trail 🌻." – Ralph Waldo Emerson"},  
+{"🌸 "What you get by achieving your goals 🎯 is not as important 💡 as what you become 🌟 by achieving them 🐧." – Zig Ziglar"},  
+{"🏀 "Don’t be afraid 😨 to fail 💔. Be afraid not to try 🌟." – Michael Jordan"},  
+{"🕊️ "It always seems impossible 🌌 until it’s done 🌸." – Nelson Mandela"},  
+{"🌟 "Believe in yourself 💖 and all that you are 🌸." – Christian D. Larson"},  
+{"🚀 "Failure will never overtake me ❌ if my determination 💪 to succeed 🌟 is strong enough 🌙." – Og Mandino"},  
+{"🌸 "Don’t stop 🚦 until you’re proud 🌟." – Anonymous"},  
+{"🌿 "Perseverance is not a long race 🏃‍♂️; it is many short races one after another 🌻." – Walter Elliot"},  
+{"🌈 "Difficult roads 🛤️ often lead to beautiful destinations 🌸." – Anonymous"},  
+{"✨ "Your limitation 😔 — it’s only your imagination 🌙." – Anonymous"},  
+{"🌙 "Push harder 💪 than yesterday 🌸 if you want a different tomorrow 🌈." – Anonymous"},  
+{"🎬 "The way to get started 🚀 is to quit talking 🗣️ and begin doing 🎭." – Walt Disney"},  
+{"🌻 "Motivation is what gets you started 🌞. Habit is what keeps you going 🌸." – Jim Ryun"},  
+{"🔥 "Opportunities don’t happen 🌟. You create them 🐝." – Chris Grosser"},  
+{"🐦 "Do something wonderful 🌸, people may imitate it 🐾." – Albert Schweitzer"},  
+{"🌼 "The best preparation for tomorrow 🌅 is doing your best today 🌸." – H. Jackson Brown Jr."},  
+{"🏈 "It’s not whether you get knocked down ❌, it’s whether you get up ✅." – Vince Lombardi"},  
+{"🌙 "Go the extra mile 🚶. It’s never crowded 🌸." – Wayne Dyer"},  
+{"💫 "Once you choose hope 🌈, anything’s possible 🌌." – Christopher Reeve"},  
+{"🌹 "Success is liking yourself 🌸, liking what you do ❤️, and liking how you do it 🌼." – Maya Angelou"},  
+{"🐝 "Do small things 🌻 in a great way 🌸." – Napoleon Hill"},  
+{"🏔️ "The man who moves a mountain ⛰️ begins by carrying away small stones 🌸." – Confucius"},  
+{"🎶 "Don’t compromise yourself 🦋. You’re all you’ve got 🌟." – Janis Joplin"},  
+{"🍷 "Courage is grace 🌸 under pressure 🌹." – Ernest Hemingway"}  
+  
 ];
 
-// small helper: random integer
 function randInt(n) {
   return Math.floor(Math.random() * n);
 }
 
-// typing effect: show one character at a time
+
 function typeMessage(msg, speed = 32) {
   messageBox.textContent = "";
   let i = 0;
@@ -118,7 +127,7 @@ function typeMessage(msg, speed = 32) {
   }, speed);
 }
 
-// animated pop for message using anime.js
+
 function animateMessagePop() {
   anime({
     targets: messageBox,
@@ -129,7 +138,6 @@ function animateMessagePop() {
   });
 }
 
-// background gradient change
 function animateBackground() {
   const h1 = Math.random() * 360;
   const h2 = (h1 + 40 + Math.random() * 60) % 360;
@@ -137,7 +145,6 @@ function animateBackground() {
   document.body.style.background = `linear-gradient(120deg, hsl(${h1},75%,90%), hsl(${h2},75%,90%))`;
 }
 
-// confetti burst (canvas-confetti)
 function confettiBurst(x = 0.5, y = 0.3) {
   // burst from point
   confetti({
@@ -148,7 +155,6 @@ function confettiBurst(x = 0.5, y = 0.3) {
   });
 }
 
-// create colorful floating dots (hearts/rounds) using anime.js
 function createFloatingDots(count = 14) {
   for (let i = 0; i < count; i++) {
     const el = document.createElement("div");
@@ -162,7 +168,6 @@ function createFloatingDots(count = 14) {
     el.style.fontSize = `${10 + Math.random() * 26}px`;
     effects.appendChild(el);
 
-    // animate upward + horizontal drift + fade
     anime({
       targets: el,
       translateY: -(180 + Math.random() * 180),
@@ -176,7 +181,6 @@ function createFloatingDots(count = 14) {
   }
 }
 
-// flying emojis from bottom of screen
 function flyingEmojis() {
   const emojis = ["💖", "✨", "🌈", "😍", "🎉", "🌟", "🍪", "☀️"];
   for (let i = 0; i < 12; i++) {
@@ -201,7 +205,6 @@ function flyingEmojis() {
   }
 }
 
-// sparkles tiny circles
 function sparkleEffect() {
   for (let i = 0; i < 16; i++) {
     const s = document.createElement("div");
@@ -226,7 +229,6 @@ function sparkleEffect() {
   }
 }
 
-// Save as image simple (screenshot of container)
 function saveAsImage() {
   // use html2canvas if available; fallback to simple message
   if (typeof html2canvas === "function") {
@@ -243,7 +245,6 @@ function saveAsImage() {
   }
 }
 
-// Share (navigator.share if supported)
 async function tryShare(message) {
   const url = location.href;
   const text = message ? message : "A special message for Kulla";
@@ -262,7 +263,6 @@ async function tryShare(message) {
   }
 }
 
-/* ===== main click handler ===== */
 let firstClick = true;
 magicBtn.addEventListener("click", () => {
   if (firstClick) {
@@ -275,7 +275,6 @@ magicBtn.addEventListener("click", () => {
 
   const msg = messages[randInt(messages.length)];
 
-  // sequence of UX
   typeMessage(msg, 30);
   animateBackground();
   createFloatingDots(16);
@@ -285,7 +284,6 @@ magicBtn.addEventListener("click", () => {
   animateMessagePop();
 });
 
-// play/pause music
 playPause.addEventListener("click", () => {
   if (bgMusic.paused) {
     bgMusic.play();
@@ -296,11 +294,9 @@ playPause.addEventListener("click", () => {
   }
 });
 
-// share
 shareBtn.addEventListener("click", async () => {
   const txt = messageBox.textContent || "A sweet message for you!";
   tryShare(txt);
 });
 
-// save
 saveBtn.addEventListener("click", saveAsImage);
